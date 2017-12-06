@@ -1,0 +1,232 @@
+<% include ../partials/header%>
+
+<%=status%>
+<div class="container">
+	<h1>Input Employee</h1>
+	<form>
+		<div class="file-field input-field">
+			<div class="btn" onclick="">
+				<span><i class="material-icons text-white">photo</i> Photo</span>
+				<input type="file">
+			</div>
+			<div class="file-path-wrapper">
+				<input class="file-path validate" type="text">
+			</div>
+		</div>
+
+		<div class="input-field">
+			<input type="text" class="validate" id="namalengkap" placeholder="John Smith" required>
+			<label for="namalengkap">Nama Lengkap</label>
+		</div>
+
+		<div class="row">
+			<div class="input-field col s3">
+				<input type="text" class="validate " id="tempatlahir" placeholder="Medan" required>
+				<label for="tempatlahir">Tempat lahir</label>
+			</div>
+			<div class="input-field col s9">
+				<input type="text" class="datepicker" >
+				<label for="tanggallahir">Tanggal lahir</label>
+			</div>
+		</div>
+
+		<div class="input-field">
+			<input type="text" class="validate" id="alamat" placeholder="Alamat" required>
+			<label for="alamat">Alamat</label>
+		</div>
+
+		<div class="row">
+			<p class="col s-4 grey-text">Jenis Kelamin:</p>
+			<p class="col s-4">
+	      <input class="with-gap" name="gender" type="radio" id="male" checked />
+	      <label for="male">Pria</label>
+	    </p>
+	    <p class="col s-4">
+	      <input class="with-gap" name="gender" type="radio" id="female" />
+	      <label for="female">Wanita</label>
+	    </p>
+		</div>
+
+		<div class="input-field">
+			<input type="text" class="validate" id="nik" placeholder="No KTP" required>
+			<label for="nik">No Induk KTP (NIK)</label>
+		</div>
+
+		<div class="file-field input-field">
+			<div class="btn" onclick="">
+				<span><i class="material-icons text-white">photo</i> Scan KTP</span>
+				<input type="file">
+			</div>
+			<div class="file-path-wrapper">
+				<input class="file-path validate" type="text">
+			</div>
+		</div>
+
+		<div class="input-field ">
+			<input type="text" class="datepicker" >
+			<label for="tanggallahir">Tanggal Mulai Bekerja</label>
+		</div>
+
+		<div class="input-field">
+			<label for="exampleInputPassword5">Tanggal Berhenti Bekerja (belum jelas)</label>
+			<br><input type="checkbox" name="" onclick="document.getElementById('exampleInputPassword5').disabled=this.checked;"> Masih bekerja
+			<input type="date" class="validate" id="exampleInputPassword5">
+		</div>
+
+		<div class="input-field">
+			<label for="exampleInputPassword11">Agama </label><br>
+			<select class="validate" id="agama" name="agama">
+				<option value="protestan">Kristen Protestan</option>
+				<option value="katolik">Kristen Katolik</option>
+				<option value="buddha">Buddha</option>
+				<option value="Islam">Islam</option>
+				<option value="hindu">Hindu</option>
+				<option value="konghucu">Kong Hu Cu</option>
+			</select>
+		</div>
+		<div class="input-field">
+			<label for="exampleInputPassword12">No HP : </label>
+			<input type="text" class="validate" id="exampleInputPassword12" placeholder="08576214xxxx" required="">
+		</div>
+		<div class="input-field">
+			<label for="exampleInputPassword8">No Telepon Rumah (optional)</label>
+			<input type="text" class="validate" id="exampleInputPassword8" placeholder="061463xxxx">
+		</div>
+		<div class="input-field">
+			<label for="exampleInputPassword9">Email Pribadi</label>
+			<input type="email" class="validate" id="exampleInputPassword9" placeholder="Someone@gmail.com" required>
+		</div>
+		<div class="input-field">
+			<label for="exampleInputPassword10">Email UPH</label>
+			<input type="email" class="validate" id="exampleInputPassword10" placeholder="Someone@uph.edu" required>
+		</div>
+		<div class="input-field">
+			<label for="exampleInputPassword10">Shift Kerja</label>
+			<select class="validate" id="exampleFormControlSelect1" name="shift">
+				<option value="pagi">Pagi</option>
+				<option value="tanggung">Tanggung/Middle</option>
+				<option value="siang">Siang</option>
+			</select>
+		</div>
+		<div class="input-field">
+			<label for="exampleInputPassword11">Riwayat Pendidikan : </label><br>
+			<select class="validate" id="pendidikan" name="pendidikan">
+				<option value="smp">SMP</option>
+				<option value="sma">SMA</option>
+				<option value="s1">S1</option>
+				<option value="s2">S12</option>
+				<option value="s3">S3</option>
+			</select>
+		</div>
+		<div class="input-field">
+			<label for="exampleInputPassword13">Tanggal Masuk </label>
+			<input type="date" class="validate" id="exampleInputPassword13" >
+		</div>
+		<div class="input-field">
+			<label for="exampleInputPassword14">Tanggal Keluar </label>
+			<input type="date" class="validate" id="exampleInputPassword14" >
+		</div>
+		<div class="input-field">
+			<label for="exampleInputPassword11">Department (belum jelas) : </label><br>
+			<select class="validate" id="exampleFormControlSelect12" name="department">
+				<option value="smp">Ekonomi</option>
+				<option value="sma">SMA</option>
+				<option value="s1">S1</option>
+				<option value="s2">S12</option>
+				<option value="s3">S3</option>
+			</select>
+		</div>
+		<!-- DOSEN -->
+		<%if(status=='dosenTetap' || status == 'dosenTidakTetap' || status == 'karyawanTetapAkademik' || status == 'karyawanTetapNonAkademik') {%>
+		<div class="input-field">
+			<label for="exampleInputPassword15">NIDN</label>
+			<input type="text" class="validate" id="exampleInputPassword15" required>
+		</div>
+		<div class="input-field">
+			<label for="fakultas">Fakultas : </label><br>
+			<select class="validate" id="fakultas" name="fakultas">
+				<option value="ekonomi">Ekonomi</option>
+				<option value="hukum">Hukum</option>
+				<option value="komputer">Komputer</option>
+			</select>
+		</div>
+		<div class="input-field">
+			<label for="prodi">Program Studi : </label><br>
+			<select class="validate" id="prodi" name="prodi">
+				<option value="management">Management</option>
+				<option value="accounting">Accounting</option>
+				<option value="hospitality">Hospitality</option>
+				<option value="informationSystem">Information System</option>
+				<option value="informationTechnology">Information Technology</option>
+				<option value="law">Law</option>
+			</select>
+		</div>
+		<!-- pendidikan -->
+		<div class="riwayatpendidikan">
+			<div class="input-field">
+				<label for="exampleInputPassword11">Riwayat Pendidikan : </label><br>
+				<select class="validate" id="pendidikan" name="pendidikan">
+					<option value="s1">S1</option>
+					<option value="s2">S2</option>
+					<option value="s3">S3</option>
+				</select>
+			</div>
+			<div class="input-field">
+				<label for="exampleInputPassword16">Gelar Akademis</label>
+				<input type="text" class="validate" id="exampleInputPassword16" required>
+			</div>
+			<div class="input-field">
+				<label for="exampleInputPassword17">Asal Institusi</label>
+				<input type="text" class="validate" id="exampleInputPassword17" required>
+			</div>
+			<div class="input-field">
+				<label for="exampleInputPassword18">Bidang Ilmu</label>
+				<input type="text" class="validate" id="exampleInputPassword18" required>
+			</div>
+			<div class="input-field">
+				<label for="exampleInputPassword18">Tahun Masuk - Tahun Selesai</label>
+				<input type="text" class="validate" id="exampleInputPassword18" required>
+			</div>
+			<div class="input-field">
+				<label for="exampleInputIjazah">Unggah Ijazah</label>
+				<input type="file" class="validate" id="exampleInputIjazah" required>
+			</div>
+		</div>
+		<div class="input-field">
+			<label for="exampleInputIjazah">Sertifikasi Dosen</label>
+			<input type="file" class="validate" id="exampleInputIjazah" required>
+		</div>
+		<div class="input-field">
+			<label for="jabatanAkademik">Jenjang Jabatan Akademik : </label><br>
+			<select class="validate" id="jabatanAkademik" name="jabatanAkademik">
+				<option value="belum">Belum Memiliki</option>
+				<option value="assistenAhli">Assisten Ahli</option>
+				<option value="lektor">Lektor</option>
+				<option value="lektorKepala">Lektor Kepala</option>
+				<option value="professor">Professor</option>
+			</select>
+		</div>
+		<!-- untuk sertifikasi dosen -->
+		<div>
+			<div class="input-field">
+				<label for="exampleInputPassword21">Penyelenggara : </label>
+				<input type="text" class="validate" id="exampleInputPassword21" required>
+			</div>
+			<div class="input-field">
+				<label for="exampleInputPassword21">Tahun Kadarluarsa : </label>
+				<input type="text" class="validate" id="exampleInputPassword21" required>
+			</div>
+			<div class="input-field">
+				<label for="exampleInputPassword21">URL: </label>
+				<input type="text" class="validate" id="exampleInputPassword22" required>
+			</div>
+			<div class="input-field">
+				<label for="exampleInputSerifikatDosen">Unggah Sertifikasi Dosen</label>
+				<input type="file" class="validate" id="exampleInputSerifikatDosen" required>
+			</div>
+		</div>
+		<%}%>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>
+<% include ../partials/footer%>
