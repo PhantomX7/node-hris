@@ -25,7 +25,7 @@
 				<label for="tempatlahir">Tempat lahir</label>
 			</div>
 			<div class="input-field col s9">
-				<input type="text" class="datepicker" >
+				<input type="text" class="datepicker" id="tanggallahir">
 				<label for="tanggallahir">Tanggal lahir</label>
 			</div>
 		</div>
@@ -63,19 +63,29 @@
 		</div>
 
 		<div class="input-field ">
-			<input type="text" class="datepicker" >
-			<label for="tanggallahir">Tanggal Mulai Bekerja</label>
+			<input type="text" class="datepicker" id="tanggalmulai">
+			<label for="tanggalmulai">Tanggal Mulai Bekerja</label>
 		</div>
 
+		<p>
+      <input type="checkbox" onclick="document.getElementById('tanggalberhenti').disabled=this.checked;" class="filled-in" id="filled-in-box" checked="checked" />
+      <label for="filled-in-box"> Masih bekerja</label>
+    </p>
 		<div class="input-field">
-			<label for="exampleInputPassword5">Tanggal Berhenti Bekerja (belum jelas)</label>
-			<br><input type="checkbox" name="" onclick="document.getElementById('exampleInputPassword5').disabled=this.checked;"> Masih bekerja
-			<input type="date" class="validate" id="exampleInputPassword5">
+			<input type="text" class="datepicker" id="tanggalberhenti">
+			<label for="tanggalberhenti">Tanggal Berhenti Bekerja (belum jelas)</label>
 		</div>
 
 		<div class="input-field">
 			<label for="exampleInputPassword11">Agama </label><br>
-			<select class="validate" id="agama" name="agama">
+			<select  id="agama" name="agama">
+
+			</select>
+		</div>
+
+		<div class="input-field">
+			<select id="agama" name="agama" class="validate" required>
+				<option value="" disabled selected>Pilih Agama</option>
 				<option value="protestan">Kristen Protestan</option>
 				<option value="katolik">Kristen Katolik</option>
 				<option value="buddha">Buddha</option>
@@ -83,7 +93,9 @@
 				<option value="hindu">Hindu</option>
 				<option value="konghucu">Kong Hu Cu</option>
 			</select>
+			<label for="agama">Employee Status : </label>
 		</div>
+
 		<div class="input-field">
 			<label for="exampleInputPassword12">No HP : </label>
 			<input type="text" class="validate" id="exampleInputPassword12" placeholder="08576214xxxx" required="">
