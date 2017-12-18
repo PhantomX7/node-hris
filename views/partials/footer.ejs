@@ -21,7 +21,20 @@
       close: 'Ok',
       closeOnSelect: false // Close upon selecting a date,
     });
+
   });
+
+  //Dropzone
+  Dropzone.options.uploadExcel = {
+    url: "/employee/new/upload",
+    paramName: "file", // The name that will be used to transfer the file
+    dictDefaultMessage: 'Drag an excel file to upload, or click to select one',
+    acceptedFiles: '.xlsx',
+    maxFilesize: 1, // MB
+    accept: function(file, done) {
+      done();
+    }
+  };
 </script>
 </body>
 

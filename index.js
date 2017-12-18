@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const path = require('path')
+const { upload } = require('./middleware/upload')
+const xlsx = require('xlsx')
 
 // apply middleware
 app.use(bodyParser.urlencoded({extended: true}))
@@ -21,11 +23,57 @@ app.post('/login', (req, res) => {
   res.redirect('/dashboard')
 })
 app.get('/employee', (req, res) => {
+  res.render('./employee/addEmployee')
+})
+app.get('/employee/new', (req, res) => {
   res.render('./employee/statusEmployee')
+})
+app.get('/employee/new/upload', (req, res) => {
+  res.render('./employee/uploadEmployee')
+})
+app.post('/employee/new/upload', upload.single('file'), async (req, res) => {
+  if (!req.file) {
+    return res.status(422).json({
+      error: 'Please Upload a file'
+    })
+  }
+  let workbook
+  let toJson = function toJson (workbook) {
+    let result = {}
+    workbook.SheetNames.forEach(function (sheetName) {
+      let roa = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName], {header: 1})
+      if (roa.length) result[sheetName] = roa
+    })
+    return JSON.stringify(result, 2, 2)
+  }
+  try {
+    // upload image to cloudinary and set resulting url to image variable
+    workbook = xlsx.readFile(req.file.path)
+
+    // let result = await cloudinary.uploader.upload(req.file.path)
+    // let image = result.secure_url
+
+    // await Event.create(newEvent, function (err, newlyCreated) {
+    //   if (err) {
+    //     console.log(err)
+    //   } else {
+    //     // redirect back to events page
+    //     console.log('event created')
+    //     req.flash('success', 'you created an event')
+    //     res.redirect('/admin/events')
+    //   }
+    // })
+  } catch (err) {
+    console.log(err)
+    return res.status(422).json({
+      error: 'Error'
+    })
+  }
+  return res.status(200).send(toJson(workbook))
 })
 app.post('/employee', (req, res) => {
   var status = req.body.status
-  res.render('./employee/inputEmployee', {status: status})
+  res.render('./employee/newEmployee', {status: status})
 })
 
 // port config
