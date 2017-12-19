@@ -14,5 +14,5 @@ const excelFilter = function (req, file, cb) {
 const upload = multer({storage: storage, fileFilter: excelFilter})
 
 module.exports = {
-  upload: upload
+  upload
 }
