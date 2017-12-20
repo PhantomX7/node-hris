@@ -1,43 +1,33 @@
 </div>
-</div>
-
-
-
-<script type="text/javascript">
-  $( document ).ready(function(){
-    $('.button-collapse').sideNav({
-        closeOnClick: true
+</main>
+<!--Main Layout-->
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous">
+  </script>
+  <script src="/scripts/mdb.js"></script>
+  <script type="text/javascript">
+    $(".button-collapse").sideNav();
+  </script>
+  <script type="text/javascript">
+    //Dropzone
+    Dropzone.options.uploadExcel = {
+      url: "/attendance/upload",
+      paramName: "file", // The name that will be used to transfer the file
+      dictDefaultMessage: 'Drag an excel file to upload, or click to select one',
+      acceptedFiles: '.xlsx',
+      maxFilesize: 1, // MB
+      accept: function(file, done) {
+        done();
+      },
+      success: function(file, response){
+        console.log(response);
+        $('#successText').text("success");
       }
-    );
-    $('select').material_select();
-    $('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15, // Creates a dropdown of 15 years to control year,
-      today: 'Today',
-      clear: 'Clear',
-      close: 'Ok',
-      closeOnSelect: false // Close upon selecting a date,
-    });
+    };
 
-  });
-
-  //Dropzone
-  Dropzone.options.uploadExcel = {
-    url: "/attendance/upload",
-    paramName: "file", // The name that will be used to transfer the file
-    dictDefaultMessage: 'Drag an excel file to upload, or click to select one',
-    acceptedFiles: '.xlsx',
-    maxFilesize: 1, // MB
-    accept: function(file, done) {
-      done();
-    },
-    success: function(file, response){
-      console.log(response);
-      $('#successText').text("success");
-    }
-  };
-
-</script>
+  </script>
 </body>
 
 </html>
