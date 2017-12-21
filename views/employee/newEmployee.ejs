@@ -2,56 +2,58 @@
 
 <h3><%=status%></h3>
 <div class="">
-	<h1>Input Employee</h1>
+	<h1>New Employee</h1>
 	<form>
-		<div class="file-field input-field">
-			<div class="btn" onclick="">
-				<span><i class="material-icons text-white">photo</i> Photo</span>
-				<input type="file">
-			</div>
-			<div class="file-path-wrapper">
-				<input class="file-path validate" type="text">
-			</div>
-		</div>
+		<div class="file-field pb-3">
+        <div class="btn btn-primary btn-sm">
+            <span>Choose a photo</span>
+            <input type="file">
+        </div>
+        <div class="file-path-wrapper">
+           <input class="file-path validate" type="text" placeholder="Upload a photo">
+        </div>
+    </div>
 
-		<div class="input-field">
-			<input type="text" class="validate" id="namalengkap" placeholder="John Smith" required>
+		<div class="md-form">
+			<input type="text" class="validate" id="namalengkap" required>
 			<label for="namalengkap">Nama Lengkap</label>
 		</div>
 
 		<div class="row">
-			<div class="input-field col s3">
-				<input type="text" class="validate " id="tempatlahir" placeholder="Medan" required>
-				<label for="tempatlahir">Tempat lahir / Tanggal Lahir</label>
+			<div class="md-form col-xl-6">
+				<input type="text" class="validate" id="tempatlahir" required>
+				<label class="pl-3" for="tempatlahir">Tempat lahir</label>
 			</div>
-			<div class="input-field col s9">
+			<label class="pl-3" for="tempatlahir">Tanggal Lahir</label>
+			<div class="md-form col-xl-3">
 				<input type="date" id="tempatlahir" required>
 			</div>
 		</div>
 
-		<div class="input-field">
-			<input type="text" class="validate" id="alamat" placeholder="Alamat" required>
+
+		<div class="md-form">
+			<input type="text" class="validate" id="alamat" required>
 			<label for="alamat">Alamat</label>
 		</div>
 
 		<div class="row">
-			<p class="col s2 grey-text">Jenis Kelamin:</p>
-			<p class="col s1">
+			<p class="pl-3 grey-text">Jenis Kelamin:</p>
+			<p class="">
 	      <input class="with-gap" name="gender" type="radio" id="male" checked />
 	      <label for="male">Pria</label>
 	    </p>
-	    <p class="col s1">
+	    <p class="">
 	      <input class="with-gap" name="gender" type="radio" id="female" />
 	      <label for="female">Wanita</label>
 	    </p>
 		</div>
 
-		<div class="input-field">
+		<div class="md-form">
 			<input type="text" class="validate" id="nik" placeholder="No KTP" required>
 			<label for="nik">No Induk KTP (NIK)</label>
 		</div>
 
-		<div class="file-field input-field">
+		<div class="file-field md-form">
 			<div class="btn" onclick="">
 				<span><i class="material-icons text-white">photo</i> Scan KTP</span>
 				<input type="file">
@@ -61,7 +63,7 @@
 			</div>
 		</div>
 
-		<div class="input-field">
+		<div class="md-form">
 			<div class="grey-text">Tanggal Mulai Bekerja:</div>
 			<input type="date" class="validate" id="tanggalmulaibekerja">
 		</div>
@@ -70,13 +72,13 @@
       <input type="checkbox" onclick="document.getElementById('tanggalberhenti').disabled=this.checked;" class="filled-in" id="filled-in-box" checked="checked" />
       <label for="filled-in-box"> Masih bekerja</label>
     </p>
-		<div class="input-field">
+		<div class="md-form">
 			<div class="grey-text">Tanggal Berhenti Bekerja (belum jelas)</div>
 			<input type="date" class="validate" id="tanggalberhentibekerja" disabled>
 		</div>
 
-		<div class="input-field">
-			<select id="agama" nameWW="agama" class="validate" required>
+		<div class="md-form">
+			<select id="agama" name="agama" class="validate" required>
 				<option value="" disabled selected>Pilih Agama</option>
 				<option value="protestan">Kristen Protestan</option>
 				<option value="katolik">Kristen Katolik</option>
@@ -88,27 +90,27 @@
 			<label for="agama">Agama : </label>
 		</div>
 
-		<div class="input-field">
+		<div class="md-form">
 			<input type="text" class="validate" id="nomorhp" placeholder="08576214xxxx" required>
 			<label for="nomorhp">No HP : </label>
 		</div>
 
-		<div class="input-field">
+		<div class="md-form">
 			<input type="text" class="validate" id="enomorrumah" placeholder="061463xxxx">
 			<label for="nomorrumah">No Telepon Rumah (optional)</label>
 		</div>
 
-		<div class="input-field">
+		<div class="md-form">
 			<input type="email" class="validate" id="emailpribadi" placeholder="Someone@gmail.com" required>
 			<label for="emailpribadi">Email Pribadi</label>
 		</div>
 
-		<div class="input-field">
+		<div class="md-form">
 			<input type="email" class="validate" id="emailuph" placeholder="Someone@uph.edu" required>
 			<label for="emailuph">Email UPH</label>
 		</div>
 
-		<div class="input-field">
+		<div class="md-form">
 			<select id="shiftkerja" name="shiftkerja" class="validate" required>
 				<option value="" disabled selected>Pilih Shift</option>
 				<option value="pagi">Pagi</option>
@@ -118,7 +120,7 @@
 			<label for="shiftkerja">Shift Kerja</label>
 		</div>
 
-		<div class="input-field">
+		<div class="md-form">
 			<select id="riwayatpendidikan" name="riwayatpendidikan" class="validate" required>
 				<option value="" disabled selected>Pilih Shift</option>
 				<option value="smp">SMP</option>
@@ -130,17 +132,17 @@
 			<label for="riwayatpendidikan">Riwayat Pendidikan : </label>
 		</div>
 
-		<div class="input-field">
+		<div class="md-form">
 			<div class="grey-text">Tanggal Masuk:</div>
 			<input type="date" class="validate" id="tanggalmasukpendidikan">
 		</div>
 
-		<div class="input-field">
+		<div class="md-form">
 			<div class="grey-text">Tanggal Keluar :</div>
 			<input type="date" class="validate" id="tanggalkeluarpendidikan" disabled>
 		</div>
 
-		<div class="input-field">
+		<div class="md-form">
 			<select id="department" name="department" class="validate" required>
 				<option value="" disabled selected>Pilih Department :</option>
 				<option value="smp">Ekonomi</option>
@@ -150,12 +152,12 @@
 
 		<!-- DOSEN -->
 		<%if(status=='dosenTetap' || status == 'dosenTidakTetap' || status == 'karyawanTetapAkademik' || status == 'karyawanTetapNonAkademik') {%>
-		<div class="input-field">
+		<div class="md-form">
 			<input type="text" class="validate" id="nidn" required>
 			<label for="nidn">NIDN</label>
 		</div>
 
-		<div class="input-field">
+		<div class="md-form">
 			<select id="prodi" name="prodi" class="validate" required>
 				<option value="" disabled selected>Pilih Shift</option>
 				<option value="management">Management</option>
@@ -170,7 +172,7 @@
 
 		<!-- pendidikan -->
 		<div class="pendidikan">
-			<div class="input-field">
+			<div class="md-form">
 				<select id="riwayatpendidikan" name="riwayatpendidikan" class="validate" required>
 					<option value="" disabled selected>Pilih Shift</option>
 					<option value="s1">S1</option>
@@ -180,34 +182,34 @@
 				<label for="riwayatpendidikan">Riwayat Pendidikan : </label>
 			</div>
 
-			<div class="input-field">
+			<div class="md-form">
 				<input type="text" class="validate" id="gelar" required>
 				<label for="gelar">Gelar Akademis</label>
 			</div>
 
-			<div class="input-field">
+			<div class="md-form">
 				<label for="exampleInputPassword17">Asal Institusi</label>
 				<input type="text" class="validate" id="exampleInputPassword17" required>
 			</div>
-			<div class="input-field">
+			<div class="md-form">
 				<label for="exampleInputPassword18">Bidang Ilmu</label>
 				<input type="text" class="validate" id="exampleInputPassword18" required>
 			</div>
-			<div class="input-field">
+			<div class="md-form">
 				<label for="exampleInputPassword18">Tahun Masuk - Tahun Selesai</label>
 				<input type="text" class="validate" id="exampleInputPassword18" required>
 			</div>
-			<div class="input-field">
+			<div class="md-form">
 				<label for="exampleInputIjazah">Unggah Ijazah</label>
 				<input type="file" class="validate" id="exampleInputIjazah" required>
 			</div>
 		</div>
 
-		<div class="input-field">
+		<div class="md-form">
 			<label for="exampleInputIjazah">Sertifikasi Dosen</label>
 			<input type="file" class="validate" id="exampleInputIjazah" required>
 		</div>
-		<div class="input-field">
+		<div class="md-form">
 			<label for="jabatanAkademik">Jenjang Jabatan Akademik : </label><br>
 			<select class="validate" id="jabatanAkademik" name="jabatanAkademik">
 				<option value="belum">Belum Memiliki</option>
@@ -219,19 +221,19 @@
 		</div>
 		<!-- untuk sertifikasi dosen -->
 		<div>
-			<div class="input-field">
+			<div class="md-form">
 				<label for="exampleInputPassword21">Penyelenggara : </label>
 				<input type="text" class="validate" id="exampleInputPassword21" required>
 			</div>
-			<div class="input-field">
+			<div class="md-form">
 				<label for="exampleInputPassword21">Tahun Kadarluarsa : </label>
 				<input type="text" class="validate" id="exampleInputPassword21" required>
 			</div>
-			<div class="input-field">
+			<div class="md-form">
 				<label for="exampleInputPassword21">URL: </label>
 				<input type="text" class="validate" id="exampleInputPassword22" required>
 			</div>
-			<div class="input-field">
+			<div class="md-form">
 				<label for="exampleInputSerifikatDosen">Unggah Sertifikasi Dosen</label>
 				<input type="file" class="validate" id="exampleInputSerifikatDosen" required>
 			</div>
