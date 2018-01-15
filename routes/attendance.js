@@ -2,11 +2,17 @@ const express = require('express')
 const router = express.Router()
 const xlsx = require('xlsx')
 const { upload } = require('../middleware/upload')
+const db = require('../models')
+const moment = require('moment')
 
 // attendance route
 
 router.get('/', (req, res) => {
   res.render('./attendance/mainAttendance')
+})
+
+router.get('/view', (req, res) => {
+  res.render('./attendance/viewAttendance')
 })
 
 router.get('/upload', (req, res) => {
@@ -30,6 +36,42 @@ router.post('/upload', upload.single('file'), async (req, res) => {
   }
   try {
     workbook = xlsx.readFile(req.file.path)
+
+    let result = {}
+    workbook.SheetNames.forEach(function (sheetName) {
+      let roa = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName], {header: 1})
+      if (roa.length) result[sheetName] = roa
+    })
+    let data = result['Sheet1']
+    console.log(data)
+
+    data.forEach(async (attendance, idx) => {
+      if (idx === 0) return
+
+      let newAttendance = {
+        nik: attendance[2],
+        date: moment(attendance[0] + attendance[1], 'YYYYMMDDHHmmss').toDate()
+      }
+
+      await db.Absensi.create(newAttendance, function (err, newlyCreated) {
+        if (err) {
+          console.log(err)
+        } else {
+            // redirect back to events page
+          console.log('Absensi created')
+        }
+      })
+    })
+    // await Event.create(newEvent, function (err, newlyCreated) {
+    //   if (err) {
+    //     console.log(err)
+    //   } else {
+    //     // redirect back to events page
+    //     console.log('event created')
+    //     req.flash('success', 'you created an event')
+    //     res.redirect('/admin/events')
+    //   }
+    // })
   } catch (err) {
     console.log(err)
     return res.status(422).json({

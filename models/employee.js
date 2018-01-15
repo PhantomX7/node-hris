@@ -1,22 +1,28 @@
-var mongoose   = require('mongoose');
+var mongoose = require('mongoose')
 
-var employeeSchema=new mongoose.Schema({
-	Start_Date_in_Medan : Date,
-	NIK : String,
-	Last_Name : String,
-	First_Name : String,
-	DOB_on_KTP : Date,
-	Departmet : String,
-	jam_masuk : Date,
-	atasan_langsung: String,
-	absensi : [
-		{
-			type : mongoose.Schema.Types.ObjectId,
-			ref : "absensi"
-		}
-	]
-});
+var employeeSchema = new mongoose.Schema({
+  startDate: Date,
+  nik: {
+    type: String,
+    trim: true,
+	 	index: true,
+    unique: true,
+    required: true
+  },
+  last_Name: String,
+  first_Name: String,
+  birthday: Date,
+  department: String,
+  jam_masuk: Date,
+  atasan_langsung: String,
+  absensi: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Attendance'
+    }
+  ]
+})
 
-var Employee= mongoose.model("Employee",employeeSchema);
+let Employee = mongoose.model('Employee', employeeSchema)
 
-module.exports= Employee;
+module.exports = Employee

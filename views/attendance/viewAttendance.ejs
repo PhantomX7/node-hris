@@ -1,11 +1,40 @@
 <% include ../partials/attendanceHeader%>
 <div class="container">
-  <h2>Upload Attendance Data</h2>
-  <form method="post" action="/attendance/upload" class="dropzone" id="uploadExcel" enctype="multipart/form-data">
-    <div class="fallback">
-      <input name="file" type="file" multiple />
-    </div>
-  </form>
-  <p id="successText"></p>
+  <h3>View employee</h3>
+  <table class="table">
+      <label class="pl-3" for="tempatlahir">From:</label>
+      <div class="md-form col-xl-3">
+        <input name="from" type="date" id="from" required>
+      </div>
+      <label class="pl-3" for="tempatlahir">Tanggal Lahir</label>
+			<div class="md-form col-xl-3">
+				<input name="to" type="date" id="to" required>
+			</div>
+      <button type="button" class="btn btn-primary">Manual</button>
+      <tr>
+        <td>NIK</td>
+        <td>Nama</td>
+        <td>birthday</td>
+        <td>department</td>
+        <td>jam_masuk</td>
+        <td>atasan_langsung</td>
+      </tr>
+
+  </table>
 </div>
+
+<script type="text/javascript">
+  $('button').on('click',()=>{
+    console.log("trigger");
+    let fromDate=new Date($('#from').val());
+    let fromString=fromDate.getFullYear()+"-"+(fromDate.getMonth()+1)+"-"+fromDate.getDate()
+    let toDate=new Date($('#to').val());
+    let toString=toDate.getFullYear()+"-"+(toDate.getMonth()+1)+"-"+toDate.getDate()
+    console.log("fromDate"+fromString);
+    $.getJSON("/api/attendances",{from:fromString,to:toString})
+    .then((data)=>{
+      console.log(data);
+    })
+  })
+</script>
 <% include ../partials/attendanceFooter%>
