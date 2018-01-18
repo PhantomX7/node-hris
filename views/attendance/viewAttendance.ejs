@@ -30,7 +30,6 @@
     let fromString=fromDate.getFullYear()+"-"+(fromDate.getMonth()+1)+"-"+fromDate.getDate()
     let toDate=new Date($('#to').val());
     let toString=toDate.getFullYear()+"-"+(toDate.getMonth()+1)+"-"+toDate.getDate()
-    console.log("fromDate"+fromString);
     $.getJSON("/api/attendances",{from:fromString,to:toString})
     .then((data)=>{
       console.log(data);
