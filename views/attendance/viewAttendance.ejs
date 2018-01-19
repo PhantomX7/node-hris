@@ -11,19 +11,67 @@
 				<input name="to" type="date" id="to" required>
 			</div>
       <button type="button" class="btn btn-primary">Manual</button>
-      <tr>
-        <td>NIK</td>
-        <td>Nama</td>
-        <td>birthday</td>
-        <td>department</td>
-        <td>jam_masuk</td>
-        <td>atasan_langsung</td>
-      </tr>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <td>NIK</td>
+            <td>Nama</td>
+            <td>Department</td>
+            <td>Atasan Langsung</td>
+            <td>Tanggal</td>
+            <td>Jam Masuk</td>
+            <td>Sign In</td>
+            <td>Sign Out</td>
+            <td>Jam Kerja</td>
+            <td>Telat</td>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+
 
   </table>
 </div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js">
+</script>
 <script type="text/javascript">
+
+  $(document).ready(function() {
+
+  });
+
+  function loadTable(data){
+    $('tbody').html(null);
+    var tr;
+    for (var i = 0; i < data.length; i++) {
+        let minDate = moment.min(getTime(data[i].absensi))
+        let maxDate = moment.max(getTime(data[i].absensi))
+        tr = $('<tr/>');
+        tr.append("<td>" + i + "</td>");
+        tr.append("<td>" + data[i].nik + "</td>");
+        tr.append("<td>" + data[i].first_Name+" "+data[i].last_Name + "</td>");
+        tr.append("<td>" + data[i].department + "</td>");
+        tr.append("<td>" + (data[i].atasan_langsung?data[i].atasan_langsung:"") + "</td>");
+        tr.append("<td>" + moment(data[i].absensi[0]["date"]).format("D MMMM YYYY") + "</td>");
+        tr.append("<td>" + minDate.format("HH:mm:ss") + "</td>");
+        tr.append("<td>" + maxDate.format("HH:mm:ss") + "</td>");
+        tr.append("<td>" + moment.utc(minDate.diff(maxDate)).format("HH:mm:ss") + "</td>");
+        // tr.append("<td>" + data[i].score + "</td>");
+        // tr.append("<td>" + data[i].team + "</td>");
+        // tr.append("<td>" + data[i].team + "</td>");
+        $('tbody').append(tr);
+    }
+  }
+
+  function getTime(datas){
+    return datas.map((data)=>{
+      return moment(data["date"])
+    })
+  }
+
   $('button').on('click',()=>{
     console.log("trigger");
     let fromDate=new Date($('#from').val());
@@ -33,6 +81,7 @@
     $.getJSON("/api/attendances",{from:fromString,to:toString})
     .then((data)=>{
       console.log(data);
+      loadTable(data)
     })
   })
 </script>

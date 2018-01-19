@@ -31,7 +31,15 @@ async function showData(from,to){
     fromDate.add(1, 'days')
   }
   let results = await Promise.all(dataPromise);
-  return results
+  return concatArray(results)
+}
+
+function concatArray(arr){
+  if(arr.length===1){return arr[0]}
+  else{
+    return arr.reduce((acc, next) => acc.concat(next), [])
+  }
+
 }
 
 function loadResultFromDatabase(date){
@@ -50,6 +58,7 @@ function loadResultFromDatabase(date){
           startDate : 1,
           nik : 1,
           first_Name : 1,
+          last_Name:1,
           birthday : 1,
           department : 1,
           jam_masuk : 1,
