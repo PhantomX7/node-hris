@@ -12,7 +12,7 @@
 			</div>
       <button type="button" class="btn btn-primary">Manual</button>
 
-      <table class="table">
+      <table id="dataTable" class="table" cellspacing="0" width="100%">
         <thead>
           <tr>
             <td>NIK</td>
@@ -35,31 +35,84 @@
 
   </table>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js">
+
+</div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<script src="/scripts/mdb.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js">
+</script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js">
+</script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js">
+</script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js">
+</script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js">
 </script>
 <script type="text/javascript">
 
   $(document).ready(function() {
+    $('#dataTable').DataTable( {
+      dom: 'Bfrtip',
+      buttons: [
+          'copyHtml5',
+          'excelHtml5',
+          'pdfHtml5'
+      ]
+    } );
+  } );
 
-  });
+  // function loadTable(data){
+  //   $('tbody').html(null);
+  //   var tr;
+  //   for (var i = 0; i < data.length; i++) {
+  //       let minTime = moment.min(getTime(data[i].absensi))
+  //       let maxTime = moment.max(getTime(data[i].absensi))
+  //       let workingHours = moment.utc(maxTime.diff(minTime))
+  //       let jam_masuk_toleransi = moment.utc(moment(data[i].jam_masuk).add(5,"minutes").format("HH:mm:ss"),"HH:mm:ss")
+  //       let jam_masuk_pertama = moment.utc(minTime.format("HH:mm:ss"),"HH:mm:ss")
+  //       tr = $('<tr/>');
+  //       tr.append("<td>" + data[i].nik + "</td>");
+  //       tr.append("<td>" + data[i].first_Name+" "+(data[i].last_Name?data[i].last_Name:"") + "</td>");
+  //       tr.append("<td>" + data[i].department + "</td>");
+  //       tr.append("<td>" + (data[i].atasan_langsung?data[i].atasan_langsung:"") + "</td>");
+  //       tr.append("<td>" + moment(data[i].absensi[0]["date"]).format("D MMMM YYYY") + "</td>");
+  //       tr.append("<td>" + (data[i].jam_masuk?moment(data[i].jam_masuk).format("HH:mm:ss"):"") + "</td>");
+  //       tr.append("<td>" + minTime.format("HH:mm:ss") + "</td>");
+  //       tr.append("<td>" + maxTime.format("HH:mm:ss") + "</td>");
+  //       tr.append("<td>" + workingHours.format("HH:mm:ss") + "</td>");
+  //       console.log(data[i].first_Name+":"+moment(data[i].jam_masuk).isBefore(minTime));
+  //       tr.append("<td "+(data[i].jam_masuk && jam_masuk_toleransi.isBefore(jam_masuk_pertama)?"style= background-color:red":"")+"></td>");
+  //       // tr.append("<td>" + data[i].team + "</td>");
+  //       // tr.append("<td>" + data[i].team + "</td>");
+  //       $('tbody').append(tr);
+  //   }
+  // }
 
   function loadTable(data){
     $('tbody').html(null);
     var tr;
     for (var i = 0; i < data.length; i++) {
-        let minDate = moment.min(getTime(data[i].absensi))
-        let maxDate = moment.max(getTime(data[i].absensi))
+        let minTime = moment.min(getTime(data[i].absensi))
+        let maxTime = moment.max(getTime(data[i].absensi))
+        let workingHours = moment.utc(maxTime.diff(minTime))
+        let jam_masuk_toleransi = moment.utc(moment(data[i].jam_masuk).add(5,"minutes").format("HH:mm:ss"),"HH:mm:ss")
+        let jam_masuk_pertama = moment.utc(minTime.format("HH:mm:ss"),"HH:mm:ss")
         tr = $('<tr/>');
-        tr.append("<td>" + i + "</td>");
         tr.append("<td>" + data[i].nik + "</td>");
-        tr.append("<td>" + data[i].first_Name+" "+data[i].last_Name + "</td>");
+        tr.append("<td>" + data[i].first_Name+" "+(data[i].last_Name?data[i].last_Name:"") + "</td>");
         tr.append("<td>" + data[i].department + "</td>");
         tr.append("<td>" + (data[i].atasan_langsung?data[i].atasan_langsung:"") + "</td>");
         tr.append("<td>" + moment(data[i].absensi[0]["date"]).format("D MMMM YYYY") + "</td>");
-        tr.append("<td>" + minDate.format("HH:mm:ss") + "</td>");
-        tr.append("<td>" + maxDate.format("HH:mm:ss") + "</td>");
-        tr.append("<td>" + moment.utc(minDate.diff(maxDate)).format("HH:mm:ss") + "</td>");
-        // tr.append("<td>" + data[i].score + "</td>");
+        tr.append("<td>" + (data[i].jam_masuk?moment(data[i].jam_masuk).format("HH:mm:ss"):"") + "</td>");
+        tr.append("<td>" + minTime.format("HH:mm:ss") + "</td>");
+        tr.append("<td>" + maxTime.format("HH:mm:ss") + "</td>");
+        tr.append("<td>" + workingHours.format("HH:mm:ss") + "</td>");
+        console.log(data[i].first_Name+":"+moment(data[i].jam_masuk).isBefore(minTime));
+        tr.append("<td "+(data[i].jam_masuk && jam_masuk_toleransi.isBefore(jam_masuk_pertama)?"style= background-color:red":"")+"></td>");
         // tr.append("<td>" + data[i].team + "</td>");
         // tr.append("<td>" + data[i].team + "</td>");
         $('tbody').append(tr);
@@ -85,4 +138,6 @@
     })
   })
 </script>
-<% include ../partials/attendanceFooter%>
+</body>
+
+</html>
