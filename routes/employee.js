@@ -50,7 +50,7 @@ router.post('/new/upload', upload.single('file'), async (req, res) => {
     let data = result['Sheet1']
 
     data.forEach(async (employee, idx) => {
-      if (idx === data.length - 1) return
+      // if (idx === data.length - 1) return
 
       let newEmployee = {
         startDate: employee[1],
@@ -66,7 +66,7 @@ router.post('/new/upload', upload.single('file'), async (req, res) => {
 
       await db.Employee.create(newEmployee, function (err, newlyCreated) {
         if (err) {
-          console.log(err)
+          return;
         } else {
             // redirect back to events page
           console.log('Employee created')
