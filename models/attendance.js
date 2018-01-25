@@ -1,14 +1,13 @@
-var mongoose = require('mongoose')
+let mongoose = require('mongoose')
 
-var attendanceSchema = new mongoose.Schema({
+let attendanceSchema = new mongoose.Schema({
   date: {
     type: Date,
     unique: true
   },
   nik: {
     type: String,
-    ref: 'Employee'
-			// model yang kita connect
+    ref: 'Employee'// model yang kita connect
   }
 })
 

@@ -2,8 +2,6 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const path = require('path')
-const { upload } = require('./middleware/upload')
-const xlsx = require('xlsx')
 
 const attendanceRoutes = require('./routes/attendance')
 const employeeRoutes = require('./routes/employee')

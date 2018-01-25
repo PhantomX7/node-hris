@@ -66,7 +66,7 @@ router.post('/new/upload', upload.single('file'), async (req, res) => {
 
       await db.Employee.create(newEmployee, function (err, newlyCreated) {
         if (err) {
-          return;
+
         } else {
             // redirect back to events page
           console.log('Employee created')

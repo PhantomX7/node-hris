@@ -1,11 +1,11 @@
-var mongoose = require('mongoose')
+let mongoose = require('mongoose')
 
-var employeeSchema = new mongoose.Schema({
+let employeeSchema = new mongoose.Schema({
   startDate: Date,
   nik: {
     type: String,
     trim: true,
-	 	index: true,
+    index: true,
     unique: true,
     required: true
   },
