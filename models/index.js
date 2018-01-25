@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 mongoose.set('debug', true)
-mongoose.connect('mongodb://localhost/hrd')
+let DATABASE_URL= process.enve.DATABASE_URL || 'mongodb://localhost/hrd'
+mongoose.connect(DATABASE_URL)
 
 mongoose.Promise = Promise
 module.exports.Employee = require('./employee')
