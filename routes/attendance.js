@@ -7,16 +7,28 @@ const moment = require('moment')
 
 // attendance route
 
-router.get('/', (req, res) => {
-  res.render('./attendance/mainAttendance')
-})
-
 router.get('/view', (req, res) => {
   res.render('./attendance/viewAttendance')
 })
 
+router.get('/view1', (req, res) => {
+  res.render('./attendance/viewAttendance1')
+})
+
+router.get('/view2', (req, res) => {
+  res.render('./attendance/viewAttendance2')
+})
+
+router.get('/view3', (req, res) => {
+  res.render('./attendance/viewAttendance3')
+})
+
 router.get('/upload', (req, res) => {
   res.render('./attendance/uploadAttendance')
+})
+
+router.get('/uploadexcel', (req, res) => {
+  res.render('./attendance/uploadAttendanceExcel')
 })
 
 router.post('/upload', upload.single('file'), async (req, res) => {

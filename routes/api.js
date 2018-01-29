@@ -5,6 +5,19 @@ const moment = require('moment')
 
 // attendance route
 
+router.get('/attendancesfull', async(req, res) => {
+  let from = req.query.from
+  let to = req.query.to
+  console.log('from ' + from)
+  console.log('to ' + to)
+
+  if (from && to) {
+    res.json(await showData(from, to))
+  } else {
+    res.json({})
+  }
+})
+
 router.get('/attendances', async(req, res) => {
   let from = req.query.from
   let to = req.query.to
