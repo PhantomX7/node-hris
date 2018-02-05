@@ -1,15 +1,11 @@
 <% include ../partials/attendanceHeader%>
 <div class="container">
-  <h3>View Attendance</h3>
+  <h3>View Attendance with no filter</h3>
   <table class="table">
-      <label class="pl-3" for="tempatlahir">From:</label>
+      <label class="pl-3" for="tempatlahir">From-to:</label>
       <div class="md-form col-xl-3">
         <input name="from" type="date" id="from" required>
       </div>
-      <label class="pl-3" for="tempatlahir">Tanggal Lahir</label>
-			<div class="md-form col-xl-3">
-				<input name="to" type="date" id="to" required>
-			</div>
       <button type="button" class="btn btn-primary">Manual</button>
 
       <table id="dataTable" class="table stripe" cellspacing="0" width="100%">
@@ -68,9 +64,8 @@
           'excelHtml5',
           'pdfHtml5'
       ]
-    } );
-
-  } );
+    });
+  });
 
   // function loadTable(data){
   //   $('tbody').html(null);
@@ -98,28 +93,40 @@
   //       $('tbody').append(tr);
   //   }
   // }
-  
+
   function loadTable(data){
     var result=[];
     for (var i = 0; i < data.length; i++) {
-        let minTime = moment.min(getTime(data[i].absensi))
-        let maxTime = moment.max(getTime(data[i].absensi))
-        let workingHours = moment.utc(maxTime.diff(minTime))
-        let jam_masuk_toleransi = moment.utc(moment(data[i].jam_masuk).add(5,"minutes").format("HH:mm:ss"),"HH:mm:ss")
-        let jam_masuk_pertama = moment.utc(minTime.format("HH:mm:ss"),"HH:mm:ss")
-        result.push([
-          data[i].nik,
-          data[i].first_Name+" "+(data[i].last_Name?data[i].last_Name:""),
-          data[i].department,
-          (data[i].atasan_langsung?data[i].atasan_langsung:""),
-          moment(data[i].absensi[0]["date"]).format("D MMMM YYYY"),
-          (data[i].jam_masuk?moment(data[i].jam_masuk).format("HH:mm:ss"):""),
-           minTime.format("HH:mm:ss"),
-          maxTime.format("HH:mm:ss"),
-          workingHours.format("HH:mm:ss"),
-          (data[i].jam_masuk && jam_masuk_toleransi.isBefore(jam_masuk_pertama)?"TELAT":""),
-          (workingHours.hours()>=9?"":"---")
-        ])
+        if(data[i].absensi.length>0){
+          console.log("here 1");
+          let minTime = moment.min(getTime(data[i].absensi))
+          let maxTime = moment.max(getTime(data[i].absensi))
+          let workingHours = moment.utc(maxTime.diff(minTime))
+          let jam_masuk_toleransi = moment.utc(moment(data[i].jam_masuk).add(5,"minutes").format("HH:mm:ss"),"HH:mm:ss")
+          let jam_masuk_pertama = moment.utc(minTime.format("HH:mm:ss"),"HH:mm:ss")
+          result.push([
+            data[i].nik,
+            data[i].first_Name+" "+(data[i].last_Name?data[i].last_Name:""),
+            data[i].department,
+            (data[i].atasan_langsung?data[i].atasan_langsung:""),
+            moment(data[i].absensi[0]["date"]).format("D MMMM YYYY"),
+            (data[i].jam_masuk?moment(data[i].jam_masuk).format("HH:mm:ss"):""),
+            minTime.format("HH:mm:ss"),
+            maxTime.format("HH:mm:ss"),
+            workingHours.format("HH:mm:ss"),
+            (data[i].jam_masuk && jam_masuk_toleransi.isBefore(jam_masuk_pertama)?"TELAT":""),
+            (workingHours.hours()>=9?"":"---")
+          ])
+        }else{
+          console.log("here 2");
+          result.push([
+            data[i].nik,
+            data[i].first_Name+" "+(data[i].last_Name?data[i].last_Name:""),
+            data[i].department,
+            (data[i].atasan_langsung?data[i].atasan_langsung:""),
+            moment(new Date($('#from').val())).format("D MMMM YYYY"),"-","-","-","-","-","-"
+          ])
+        }
     }
     $('#dataTable').DataTable( {
         destroy: true,
@@ -161,9 +168,9 @@
     console.log("trigger");
     let fromDate=new Date($('#from').val());
     let fromString=fromDate.getFullYear()+"-"+(fromDate.getMonth()+1)+"-"+fromDate.getDate()
-    let toDate=new Date($('#to').val());
+    let toDate=new Date($('#from').val());
     let toString=toDate.getFullYear()+"-"+(toDate.getMonth()+1)+"-"+toDate.getDate()
-    $.getJSON("/api/attendances",{from:fromString,to:toString})
+    $.getJSON("/api/attendancesfull",{from:fromString,to:toString})
     .then((data)=>{
       console.log(data);
       loadTable(data)

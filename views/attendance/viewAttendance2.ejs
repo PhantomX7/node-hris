@@ -6,7 +6,7 @@
       <div class="md-form col-xl-3">
         <input name="from" type="date" id="from" required>
       </div>
-      <label class="pl-3" for="tempatlahir">Tanggal Lahir</label>
+      <label class="pl-3" for="tempatlahir">To</label>
 			<div class="md-form col-xl-3">
 				<input name="to" type="date" id="to" required>
 			</div>
@@ -74,33 +74,6 @@
     } );
 
   } );
-
-  // function loadTable(data){
-  //   $('tbody').html(null);
-  //   var tr;
-  //   for (var i = 0; i < data.length; i++) {
-  //       let minTime = moment.min(getTime(data[i].absensi))
-  //       let maxTime = moment.max(getTime(data[i].absensi))
-  //       let workingHours = moment.utc(maxTime.diff(minTime))
-  //       let jam_masuk_toleransi = moment.utc(moment(data[i].jam_masuk).add(5,"minutes").format("HH:mm:ss"),"HH:mm:ss")
-  //       let jam_masuk_pertama = moment.utc(minTime.format("HH:mm:ss"),"HH:mm:ss")
-  //       tr = $('<tr/>');
-  //       tr.append("<td>" + data[i].nik + "</td>");
-  //       tr.append("<td>" + data[i].first_Name+" "+(data[i].last_Name?data[i].last_Name:"") + "</td>");
-  //       tr.append("<td>" + data[i].department + "</td>");
-  //       tr.append("<td>" + (data[i].atasan_langsung?data[i].atasan_langsung:"") + "</td>");
-  //       tr.append("<td>" + moment(data[i].absensi[0]["date"]).format("D MMMM YYYY") + "</td>");
-  //       tr.append("<td>" + (data[i].jam_masuk?moment(data[i].jam_masuk).format("HH:mm:ss"):"") + "</td>");
-  //       tr.append("<td>" + minTime.format("HH:mm:ss") + "</td>");
-  //       tr.append("<td>" + maxTime.format("HH:mm:ss") + "</td>");
-  //       tr.append("<td>" + workingHours.format("HH:mm:ss") + "</td>");
-  //       console.log(data[i].first_Name+":"+moment(data[i].jam_masuk).isBefore(minTime));
-  //       tr.append("<td "+(data[i].jam_masuk && jam_masuk_toleransi.isBefore(jam_masuk_pertama)?"style= background-color:red":"")+"></td>");
-  //       // tr.append("<td>" + data[i].team + "</td>");
-  //       // tr.append("<td>" + data[i].team + "</td>");
-  //       $('tbody').append(tr);
-  //   }
-  // }
 
   function loadTable(data){
     var result=[];
