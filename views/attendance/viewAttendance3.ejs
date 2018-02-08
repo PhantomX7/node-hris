@@ -62,7 +62,11 @@
         'pageLength',
           'copyHtml5',
           'excelHtml5',
-          'pdfHtml5'
+          {
+            extend: 'pdf',
+            text: 'Pdf',
+            orientation: 'landscape'
+          }
       ]
     });
   });
@@ -136,7 +140,11 @@
             'pageLength',
             'copyHtml5',
             'excelHtml5',
-            'pdfHtml5'
+            {
+              extend: 'pdf',
+              text: 'Pdf',
+              orientation: 'landscape'
+            }
         ],
         data: result,
         columns: [

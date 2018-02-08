@@ -11,7 +11,7 @@ router.get('/attendancesfull', async(req, res) => {
   console.log('true')
 
   if (from && to) {
-    console.log("here");
+    console.log('here')
     res.json(await showData(from, to, true))
   } else {
     res.json({})
@@ -30,14 +30,14 @@ router.get('/attendances', async(req, res) => {
   }
 })
 
-//String,String,Boolean
-async function showData (from, to,full) {
+// String,String,Boolean
+async function showData (from, to, full) {
   let days = Math.abs(moment(from, 'YYYY-MM-DD').diff(moment(to, 'YYYY-MM-DD'), 'days')) + 1
   let fromDate = moment(from, 'YYYY-MM-DD')
   let dataPromise = []
   for (let i = 0; i < days; i++) {
     let fromString = fromDate.year() + '-' + (fromDate.month() + 1) + '-' + fromDate.date()
-    dataPromise.push(full?loadResultFromDatabaseFull(fromString):loadResultFromDatabase(fromString))
+    dataPromise.push(full ? loadResultFromDatabaseFull(fromString) : loadResultFromDatabase(fromString))
     fromDate.add(1, 'days')
   }
   let results = await Promise.all(dataPromise)
@@ -82,7 +82,7 @@ function loadResultFromDatabaseFull (date) {
     },
     {
       $match: {
-        'department':  {$nin: ['Resign',null]}
+        'department': {$nin: ['Resign', null]}
       }
     }
   ])
