@@ -2,11 +2,15 @@
 <div class="container">
   <h3>View Attendance with no filter</h3>
   <table class="table">
-      <label class="pl-3" for="tempatlahir">From-to:</label>
-      <div class="md-form col-xl-3">
-        <input name="from" type="date" id="from" required>
-      </div>
-      <button type="button" class="btn btn-primary">Manual</button>
+    <label class="pl-3" for="tempatlahir">From:</label>
+    <div class="md-form col-xl-3">
+      <input name="from" type="date" id="from" required>
+    </div>
+    <label class="pl-3" for="tempatlahir">To:</label>
+    <div class="md-form col-xl-3">
+      <input name="to" type="date" id="to" required>
+    </div>
+    <button type="button" class="btn btn-primary">Generate</button>
 
       <table id="dataTable" class="table stripe" cellspacing="0" width="100%">
         <thead>
@@ -71,67 +75,44 @@
     });
   });
 
-  // function loadTable(data){
-  //   $('tbody').html(null);
-  //   var tr;
-  //   for (var i = 0; i < data.length; i++) {
-  //       let minTime = moment.min(getTime(data[i].absensi))
-  //       let maxTime = moment.max(getTime(data[i].absensi))
-  //       let workingHours = moment.utc(maxTime.diff(minTime))
-  //       let jam_masuk_toleransi = moment.utc(moment(data[i].jam_masuk).add(5,"minutes").format("HH:mm:ss"),"HH:mm:ss")
-  //       let jam_masuk_pertama = moment.utc(minTime.format("HH:mm:ss"),"HH:mm:ss")
-  //       tr = $('<tr/>');
-  //       tr.append("<td>" + data[i].nik + "</td>");
-  //       tr.append("<td>" + data[i].first_Name+" "+(data[i].last_Name?data[i].last_Name:"") + "</td>");
-  //       tr.append("<td>" + data[i].department + "</td>");
-  //       tr.append("<td>" + (data[i].atasan_langsung?data[i].atasan_langsung:"") + "</td>");
-  //       tr.append("<td>" + moment(data[i].absensi[0]["date"]).format("D MMMM YYYY") + "</td>");
-  //       tr.append("<td>" + (data[i].jam_masuk?moment(data[i].jam_masuk).format("HH:mm:ss"):"") + "</td>");
-  //       tr.append("<td>" + minTime.format("HH:mm:ss") + "</td>");
-  //       tr.append("<td>" + maxTime.format("HH:mm:ss") + "</td>");
-  //       tr.append("<td>" + workingHours.format("HH:mm:ss") + "</td>");
-  //       console.log(data[i].first_Name+":"+moment(data[i].jam_masuk).isBefore(minTime));
-  //       tr.append("<td "+(data[i].jam_masuk && jam_masuk_toleransi.isBefore(jam_masuk_pertama)?"style= background-color:red":"")+"></td>");
-  //       // tr.append("<td>" + data[i].team + "</td>");
-  //       // tr.append("<td>" + data[i].team + "</td>");
-  //       $('tbody').append(tr);
-  //   }
-  // }
-
-  function loadTable(data){
+  function loadTable(datas){
     var result=[];
-    for (var i = 0; i < data.length; i++) {
-        if(data[i].absensi.length>0){
-          console.log("here 1");
-          let minTime = moment.min(getTime(data[i].absensi))
-          let maxTime = moment.max(getTime(data[i].absensi))
-          let workingHours = moment.utc(maxTime.diff(minTime))
-          let jam_masuk_toleransi = moment.utc(moment(data[i].jam_masuk).add(5,"minutes").format("HH:mm:ss"),"HH:mm:ss")
-          let jam_masuk_pertama = moment.utc(minTime.format("HH:mm:ss"),"HH:mm:ss")
-          result.push([
-            data[i].nik,
-            data[i].first_Name+" "+(data[i].last_Name?data[i].last_Name:""),
-            data[i].department,
-            (data[i].atasan_langsung?data[i].atasan_langsung:""),
-            moment(data[i].absensi[0]["date"]).format("D MMMM YYYY"),
-            (data[i].jam_masuk?moment(data[i].jam_masuk).format("HH:mm:ss"):""),
-            minTime.format("HH:mm:ss"),
-            maxTime.format("HH:mm:ss"),
-            workingHours.format("HH:mm:ss"),
-            (data[i].jam_masuk && jam_masuk_toleransi.isBefore(jam_masuk_pertama)?"TELAT":""),
-            (workingHours.hours()>=9?"":"---")
-          ])
-        }else{
-          console.log("here 2");
-          result.push([
-            data[i].nik,
-            data[i].first_Name+" "+(data[i].last_Name?data[i].last_Name:""),
-            data[i].department,
-            (data[i].atasan_langsung?data[i].atasan_langsung:""),
-            moment(new Date($('#from').val())).format("D MMMM YYYY"),"-","-","-","-","-","-"
-          ])
+    datas.forEach(({data,date})=>{
+      for (var i = 0; i < data.length; i++) {
+          if(data[i].absensi.length>0){
+            console.log("here 1");
+            let minTime = moment.min(getTime(data[i].absensi))
+            let maxTime = moment.max(getTime(data[i].absensi))
+            let workingHours = moment.utc(maxTime.diff(minTime))
+            let jam_masuk_toleransi = moment.utc(moment(data[i].jam_masuk).add(5,"minutes").format("HH:mm:ss"),"HH:mm:ss")
+            let jam_masuk_pertama = moment.utc(minTime.format("HH:mm:ss"),"HH:mm:ss")
+            result.push([
+              data[i].nik,
+              data[i].first_Name+" "+(data[i].last_Name?data[i].last_Name:""),
+              data[i].department,
+              (data[i].atasan_langsung?data[i].atasan_langsung:""),
+              moment(data[i].absensi[0]["date"]).format("D MMMM YYYY"),
+              (data[i].jam_masuk?moment(data[i].jam_masuk).format("HH:mm:ss"):""),
+              minTime.format("HH:mm:ss"),
+              maxTime.format("HH:mm:ss"),
+              workingHours.format("HH:mm:ss"),
+              (data[i].jam_masuk && jam_masuk_toleransi.isBefore(jam_masuk_pertama)?"TELAT":""),
+              (workingHours.hours()>=9?"":"---")
+            ])
+          }else{
+            console.log("here 2");
+            result.push([
+              data[i].nik,
+              data[i].first_Name+" "+(data[i].last_Name?data[i].last_Name:""),
+              data[i].department,
+              (data[i].atasan_langsung?data[i].atasan_langsung:""),
+              moment(date).format("D MMMM YYYY"),"-","-","-","-","","---"
+            ])
+          }
         }
-    }
+    })
+
+
     $('#dataTable').DataTable( {
         destroy: true,
         dom: 'Bfrtip',
@@ -174,15 +155,28 @@
 
   $('button').on('click',()=>{
     console.log("trigger");
-    let fromDate=new Date($('#from').val());
-    let fromString=fromDate.getFullYear()+"-"+(fromDate.getMonth()+1)+"-"+fromDate.getDate()
-    let toDate=new Date($('#from').val());
-    let toString=toDate.getFullYear()+"-"+(toDate.getMonth()+1)+"-"+toDate.getDate()
-    $.getJSON("/api/attendancesfull",{from:fromString,to:toString})
-    .then((data)=>{
-      console.log(data);
-      loadTable(data)
-    })
+    let fromDate=moment(new Date($('#from').val()));
+    let toDate=moment(new Date($('#to').val()));
+
+    let dataPromise=[]
+    let days = Math.abs(fromDate.diff(toDate, 'days')) + 1
+    for (let i = 0; i < days; i++) {
+      let fromString=fromDate.year()+"-"+(fromDate.month()+1)+"-"+fromDate.date()
+      dataPromise.push($.getJSON("/api/attendancesfull",{from:fromString,to:fromString}))
+      fromDate.add(1, 'days')
+      console.log(fromString);
+    }
+    Promise.all(dataPromise)
+      .then((data)=>{
+        console.log(data);
+        loadTable(data)
+      })
+    // let results = await Promise.all(dataPromise)
+    // $.getJSON("/api/attendancesfull",{from:fromString,to:toString})
+    // .then((data)=>{
+    //   console.log(data);
+    //   loadTable(data)
+    // })
   })
 </script>
 </body>

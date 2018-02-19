@@ -6,11 +6,11 @@
       <div class="md-form col-xl-3">
         <input name="from" type="date" id="from" required>
       </div>
-      <label class="pl-3" for="tempatlahir">To</label>
+      <label class="pl-3" for="tempatlahir">To:</label>
 			<div class="md-form col-xl-3">
 				<input name="to" type="date" id="to" required>
 			</div>
-      <button type="button" class="btn btn-primary">Manual</button>
+      <button type="button" class="btn btn-primary">Generate</button>
 
       <table id="dataTable" class="table stripe" cellspacing="0" width="100%">
         <thead>
@@ -151,7 +151,7 @@
     let toDate=new Date($('#to').val());
     let toString=toDate.getFullYear()+"-"+(toDate.getMonth()+1)+"-"+toDate.getDate()
     $.getJSON("/api/attendances",{from:fromString,to:toString})
-    .then((data)=>{
+    .then(({data})=>{
       console.log(data);
       loadTable(data)
     })

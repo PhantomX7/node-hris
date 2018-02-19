@@ -41,7 +41,7 @@ async function showData (from, to, full) {
     fromDate.add(1, 'days')
   }
   let results = await Promise.all(dataPromise)
-  return concatArray(results)
+  return {data: concatArray(results), date: from}
 }
 
 function concatArray (arr) {
